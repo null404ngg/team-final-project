@@ -1,0 +1,15 @@
+# Compiled output
+out/
+classes/
+*.class
+
+# IntelliJ IDEA
+.idea/workspace.xml
+.idea/shelf/
+.idea/httpRequests/
+.idea/dataSources/
+.idea/dataSources.local.xml
+*.iml
+
+# Logs
+*.log
