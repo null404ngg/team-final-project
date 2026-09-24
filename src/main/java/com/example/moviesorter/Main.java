@@ -3,6 +3,7 @@ package com.example.moviesorter;
 import com.example.moviesorter.input.DataSource;
 import com.example.moviesorter.input.FileDataSource;
 import com.example.moviesorter.input.ManualDataSource;
+import com.example.moviesorter.input.RandomDataSource;
 import com.example.moviesorter.model.Movie;
 import com.example.moviesorter.ui.ConsoleIO;
 import com.example.moviesorter.validation.MovieValidator;
@@ -25,13 +26,17 @@ public class Main {
         consoleIO.printLine("Способ заполнения массива:");
         consoleIO.printLine("  1 — вручную");
         consoleIO.printLine("  2 — из файла");
-        int choice = consoleIO.readInt("Ваш выбор: ", 1, 2);
+        consoleIO.printLine("  3 — случайно");
+        int choice = consoleIO.readInt("Ваш выбор: ", 1, 3);
 
+        // Дальше программа работает с любым источником через интерфейс DataSource.
         DataSource dataSource;
         if (choice == 1) {
             dataSource = new ManualDataSource(consoleIO, validator);
-        } else {
+        } else if (choice == 2) {
             dataSource = new FileDataSource(readFilePath(consoleIO), consoleIO, validator);
+        } else {
+            dataSource = new RandomDataSource();
         }
 
         int size = consoleIO.readInt("Сколько фильмов загрузить? ", 1, 100);
