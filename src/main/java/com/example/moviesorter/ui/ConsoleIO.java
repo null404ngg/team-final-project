@@ -1,7 +1,5 @@
 package com.example.moviesorter.ui;
 
-import java.io.FileDescriptor;
-import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.util.NoSuchElementException;
@@ -13,8 +11,7 @@ import java.util.Scanner;
 public class ConsoleIO {
 
     private final Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
-    private final PrintStream out =
-            new PrintStream(new FileOutputStream(FileDescriptor.out), true, StandardCharsets.UTF_8);
+    private final PrintStream out = new PrintStream(System.out, true, StandardCharsets.UTF_8);
 
     /**
      * Выводит {@code prompt} (подсказку/вопрос) и считывает одну строку

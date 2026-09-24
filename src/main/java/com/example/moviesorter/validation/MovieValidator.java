@@ -4,13 +4,11 @@ import com.example.moviesorter.model.Movie;
 import java.time.Year;
 
 /**
- * Проверяет "сырые" (ещё не обёрнутые в {@link Movie}) значения полей
- * перед тем, как они попадут в объект {@link Movie}, а также проверяет
+ * Проверяет "сырые" значения полей перед тем, как они попадут в объект {@link Movie}, а также проверяет
  * уже полностью собранный объект {@link Movie} одним вызовом.
  */
 public class MovieValidator {
 
-    private static final int TITLE_MIN_LENGTH = 1;
     private static final int TITLE_MAX_LENGTH = 150;
 
     // 1888 год — самый ранний из сохранившихся фильмов в истории кино.
@@ -26,31 +24,30 @@ public class MovieValidator {
      *
      * @throws ValidationException с указанием первого же поля, которое не прошло проверку
      */
-    public void validate(Movie movie) throws ValidationException {
+    public void validate(Movie movie) {
         validateTitle(movie.getTitle());
         validateReleaseYear(movie.getReleaseYear());
         validateDurationMinutes(movie.getDurationMinutes());
     }
 
-    public void validateTitle(String title) throws ValidationException {
+    public void validateTitle(String title) {
         if (title == null || title.isBlank()) {
             throw new ValidationException("Название не должно быть пустым");
         }
-        int length = title.trim().length();
-        if (length < TITLE_MIN_LENGTH || length > TITLE_MAX_LENGTH) {
+        if (title.trim().length() > TITLE_MAX_LENGTH) {
             throw new ValidationException(
-                    "Название должно быть от " + TITLE_MIN_LENGTH + " до " + TITLE_MAX_LENGTH + " символов");
+                    "Название должно быть не длиннее " + TITLE_MAX_LENGTH + " символов");
         }
     }
 
-    public void validateReleaseYear(int releaseYear) throws ValidationException {
+    public void validateReleaseYear(int releaseYear) {
         if (releaseYear < FIRST_FILM_YEAR || releaseYear > MAX_RELEASE_YEAR) {
             throw new ValidationException(
                     "Год выхода должен быть от " + FIRST_FILM_YEAR + " до " + MAX_RELEASE_YEAR);
         }
     }
 
-    public void validateDurationMinutes(int durationMinutes) throws ValidationException {
+    public void validateDurationMinutes(int durationMinutes) {
         if (durationMinutes < MIN_DURATION_MINUTES || durationMinutes > MAX_DURATION_MINUTES) {
             throw new ValidationException(
                     "Продолжительность должна быть от " + MIN_DURATION_MINUTES
